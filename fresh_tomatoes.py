@@ -113,10 +113,14 @@ main_page_content = '''
       </div>
     </div>
     <div class="container">
-      {movie_tiles}
-    </div>
-    <div class="container">
-      {show_tiles}
+        <div class="col-md-12 col-lg-12">
+            <h1> Movies </h1>
+        </div>
+        {movie_tiles}
+        <div class="col-md-12 col-lg-12">
+            <h1> Shows </h1>
+        </div>
+        {show_tiles}
     </div>
   </body>
 </html>
@@ -132,9 +136,11 @@ movie_tile_content = '''
 '''
 show_tile_content = '''
 <div class="col-md-6 col-lg-4 movie-tile text-center">
-    <img src="{poster_image_url}" width="220" height="342">
-    <h2>{show_title}</h2>
-    <h3>{seasons} seasons<h3>
+    <a href="{wiki_link}">
+        <img src="{poster_image_url}" width="220" height="342">
+        <h2>{show_title}</h2>
+        <h3><a href="{seasons_link}"> {seasons_number} Seasons </a><h3>
+    </a>
 </div>
 '''
 
@@ -163,12 +169,14 @@ def create_show_tiles_content(shows):
     # The HTML content for this section of the page
     content = ''
     for show in shows:
-
         # Append the tile for the movie with its content filled in
         content += show_tile_content.format(
-            movie_title=show.title,
+            show_title=show.title,
             poster_image_url=show.representative_image,
-            seasons = show.seasons
+            wiki_link = show.wiki,
+            seasons_link = show.wiki + "#Episodes",
+            seasons_number = show.seasons
+
         )
     return content
 
@@ -179,7 +187,7 @@ def open_movies_page(movies, shows):
 
     # Replace the movie tiles placeholder generated content
     rendered_content = main_page_content.format(
-        movie_tiles=create_movie_tiles_content(movies)
+        movie_tiles=create_movie_tiles_content(movies),
         show_tiles=create_show_tiles_content(shows))
 
 

@@ -24,13 +24,10 @@ class Movie(Media):
 
 class Show(Media):
     """this class provides a convenient way to access media objects commonly considered to be shows"""
-    def __init__(self, title, description, representative_image, seasons, genre):
-        Media.__init__(self, title, desription, representative_image, ["AURAL", "VISUAL"])
+    def __init__(self, title, description, representative_image, seasons, wiki, genre):
+        Media.__init__(self, title, description, representative_image, ["AURAL", "VISUAL"])
         self.seasons = seasons
         self.genre = genre
+        self.wiki = wiki
     def show_attributes(self):
-        print(self.title, self.description, self.representative_image, self.experience_vectors, self.seasons, self.genre)
-
-
-hannibal = Movie("hannibal", "a cannibal has fun in italy", "testimage", "testtrailer", "5/5")
-hannibal.show_attributes()
+        print(self.title, self.description, self.representative_image, self.experience_vectors, self.seasons, self.wiki, self.genre)
