@@ -16,6 +16,11 @@ main_page_head = '''
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+            <script>
+            $(document).ready(function(){
+                $('[data-toggle="popover"]').popover();
+            });
+        </script>
     <style type="text/css" media="screen">
         body {
             padding-top: 80px;
@@ -124,24 +129,27 @@ main_page_content = '''
         {show_tiles}
     </div>
   </body>
+
 </html>
 '''
 
 
 # A single movie entry html template
 movie_tile_content = '''
-<div class="col-md-6 col-lg-4 top-buffer movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
-    <img src="{poster_image_url}" width="220" height="342">
-    <h3>{movie_title}</h3>
+<div class="col-md-6 col-lg-4 top-buffer movie-tile text-center">
+    <img data-toggle="popover" data-placement="bottom" data-trigger="hover" title="{movie_title}" data-content="{description}" src="{poster_image_url}" width="220" height="342"  data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
+    <h3 class="title">{movie_title}</h3>
 </div>
 '''
 show_tile_content = '''
 <div class="col-md-6 col-lg-4 top-buffer movie-tile text-center">
     <a href="{wiki_link}">
-        <img src="{poster_image_url}" width="220" height="342">
-        <h3>{show_title}</h3>
-        <h4><a href="{seasons_link}"> {seasons_number} Seasons </a><h4>
+        <img data-toggle="popover" data-placement="bottom" data-trigger="hover" title="{show_title}" data-content="{description}" src="{poster_image_url}" width="220" height="342">
     </a>
+    <h3 class=title>{show_title}</h3>
+    <h4><a href="{seasons_link}"> {seasons_number} Seasons </a><h4>
+
+
 </div>
 '''
 
@@ -162,7 +170,8 @@ def create_movie_tiles_content(movies):
         content += movie_tile_content.format(
             movie_title=movie.title,
             poster_image_url=movie.representative_image,
-            trailer_youtube_id=trailer_youtube_id
+            trailer_youtube_id=trailer_youtube_id,
+            description = movie.description
         )
     return content
 
@@ -172,11 +181,12 @@ def create_show_tiles_content(shows):
     for show in shows:
         # Append the tile for the movie with its content filled in
         content += show_tile_content.format(
-            show_title=show.title,
+            show_title = show.title,
             poster_image_url=show.representative_image,
             wiki_link = show.wiki,
             seasons_link = show.wiki + "#Episodes",
-            seasons_number = show.seasons
+            seasons_number = show.seasons,
+            description = show.description
 
         )
     return content
