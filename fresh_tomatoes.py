@@ -35,6 +35,7 @@ main_page_head = '''
             width: 100%;
             height: 100%;
         }
+        .top-buffer { margin-top:40px; }
         .movie-tile {
             margin-bottom: 20px;
             padding-top: 20px;
@@ -129,17 +130,17 @@ main_page_content = '''
 
 # A single movie entry html template
 movie_tile_content = '''
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
+<div class="col-md-6 col-lg-4 top-buffer movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
     <img src="{poster_image_url}" width="220" height="342">
-    <h2>{movie_title}</h2>
+    <h3>{movie_title}</h3>
 </div>
 '''
 show_tile_content = '''
-<div class="col-md-6 col-lg-4 movie-tile text-center">
+<div class="col-md-6 col-lg-4 top-buffer movie-tile text-center">
     <a href="{wiki_link}">
         <img src="{poster_image_url}" width="220" height="342">
-        <h2>{show_title}</h2>
-        <h3><a href="{seasons_link}"> {seasons_number} Seasons </a><h3>
+        <h3>{show_title}</h3>
+        <h4><a href="{seasons_link}"> {seasons_number} Seasons </a><h4>
     </a>
 </div>
 '''
