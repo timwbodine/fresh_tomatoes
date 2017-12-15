@@ -1,6 +1,6 @@
 
 class Media():
-    """this class provides a way to access abstract human-formatted media objects and serves as the root class for more specific human-formatted media types"""
+    """this class provides a way to access abstract media objects and serves as the root class for more specific media types"""
     VALID_EXPERIENCE_VECTORS = ["AURAL","VISUAL","OLFACTORY", "GUSTATORY" "TACTILE"]
     def __init__(self, title, description, representative_image, experience_vectors):
         self.title = title
@@ -11,10 +11,10 @@ class Media():
             if experience_vector in Media.VALID_EXPERIENCE_VECTORS:
                 self.experience_vectors.append(experience_vector)
             else:
-                self.experience_vectors.append = "INVALID EXPERIENCE VECTOR '" + str(experience_vector) + "' INPUT AT THIS INDEX.  PLEASE CHECK COMPATIBILITY OF VECTOR WITH CURRENT EXISTENTIAL MODALITY"
+                self.experience_vectors.append = "Invalid experience vector:'" + str(experience_vector)
 
 class Movie(Media):
-    """this class provides a convenient way to access media objects commonly considered to be movies"""
+    """this class provides a convenient way to access movie objects"""
     def __init__(self, title, description, representative_image, trailer, genre):
         Media.__init__(self, title, description, representative_image, ["AURAL", "VISUAL"])
         self.trailer = trailer
@@ -23,7 +23,7 @@ class Movie(Media):
         print(self.title, self.description, self.representative_image, self.experience_vectors, self.trailer, self.genre)
 
 class Show(Media):
-    """this class provides a convenient way to access media objects commonly considered to be shows"""
+    """this class provides a convenient way to access show objects"""
     def __init__(self, title, description, representative_image, seasons, wiki, genre):
         Media.__init__(self, title, description, representative_image, ["AURAL", "VISUAL"])
         self.seasons = seasons

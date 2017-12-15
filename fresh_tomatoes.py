@@ -16,11 +16,13 @@ main_page_head = '''
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-            <script>
-            $(document).ready(function(){
-                $('[data-toggle="popover"]').popover();
-            });
-        </script>
+    //script to handle popovers for movie/show info
+    <script>
+          $(document).ready(function(){
+              $('[data-toggle="popover"]').popover();
+          });
+    </script>
+
     <style type="text/css" media="screen">
         body {
             padding-top: 80px;
@@ -118,6 +120,7 @@ main_page_content = '''
         </div>
       </div>
     </div>
+    //Create separate sections for movies and shows.
     <div class="container">
         <div class="col-md-12 col-lg-12">
             <h1> Movies </h1>
@@ -136,11 +139,12 @@ main_page_content = '''
 
 # A single movie entry html template
 movie_tile_content = '''
-<div class="col-md-6 col-lg-4 top-buffer movie-tile text-center">
-    <img data-toggle="popover" data-placement="bottom" data-trigger="hover" title="{movie_title}" data-content="{description}" src="{poster_image_url}" width="220" height="342"  data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
+<div class="col-md-6 col-lg-4 top-buffer movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
+    <img data-toggle="popover" data-placement="bottom" data-trigger="hover" title="{movie_title}" data-content="{description}" src="{poster_image_url}" width="220" height="342"  >
     <h3 class="title">{movie_title}</h3>
 </div>
 '''
+# A single show entry html template, links to main wiki and episodes section of wiki
 show_tile_content = '''
 <div class="col-md-6 col-lg-4 top-buffer movie-tile text-center">
     <a href="{wiki_link}">
@@ -179,7 +183,7 @@ def create_show_tiles_content(shows):
     # The HTML content for this section of the page
     content = ''
     for show in shows:
-        # Append the tile for the movie with its content filled in
+        # Append the tile for the show with its content filled in
         content += show_tile_content.format(
             show_title = show.title,
             poster_image_url=show.representative_image,
@@ -196,7 +200,7 @@ def open_movies_page(movies, shows):
     # Create or overwrite the output file
     output_file = open('fresh_tomatoes.html', 'w')
 
-    # Replace the movie tiles placeholder generated content
+    # Replace the movie tiles and show tiles placeholder generated content
     rendered_content = main_page_content.format(
         movie_tiles=create_movie_tiles_content(movies),
         show_tiles=create_show_tiles_content(shows))
