@@ -1,19 +1,32 @@
 import media
 import fresh_tomatoes
+import imdb
 
-texas_chainsaw_massacre = media.Movie("The Texas Chainsaw Massacre", "Kids get trapped with a family of crazy cannibals", "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.insidethemagic.net%2Fwp-content%2Fuploads%2F2016%2F04%2FThe-Texas-Chain-Saw-Massacre-Comes-to-Universal-Orlandos-Halloween-Horror-Nights.jpg&f=1","https://youtu.be/AKqFfkassgo","horror")
-creep = media.Movie("Creep", "A guy responds to an ad requesting a cameraman to come out to an isolated house.", "https://images-na.ssl-images-amazon.com/images/M/MV5BMTY0NTU2ODM5Ml5BMl5BanBnXkFtZTgwMTAwOTA5NTE@._V1_.jpg","https://youtu.be/Kh-RXUh84NM", "horror")
-oculus = media.Movie("Oculus", "An evil magical mirror wreaks havoc on a family", "https://images-na.ssl-images-amazon.com/images/M/MV5BMzE1NzM4MjEyNV5BMl5BanBnXkFtZTgwMjYzMjMzMTE@._V1_SY1000_CR0,0,674,1000_AL_.jpg", "https://youtu.be/dYJrxezWLUk", "horror")
-auntie_mame = media.Movie("Auntie Mame", "A kooky manhattan socialite adopts her nephew and craziness ensues", "http://ia.media-imdb.com/images/M/MV5BMTMyOTg0NTc2Ml5BMl5BanBnXkFtZTcwMTA1NTUxMQ@@._V1_UY1200_CR97,0,630,1200_AL_.jpg", "https://youtu.be/NZXi_vOkMyU", "comedy")
-solaris = media.Movie("Solaris", "A psychologist is sent to a station orbiting a distant planet in order to discover what has caused the crew to go insane.", "https://images-na.ssl-images-amazon.com/images/M/MV5BZmY4Yjc0OWQtZDRhMy00ODc2LWI2NGYtMWFlODYyN2VlNDQyXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SY1000_SX708_AL_.jpg", "https://youtu.be/9LMMn8czq2w", "science fiction")
-gremlins = media.Movie("Gremlins", "A boy inadvertently breaks three important rules concerning his new pet and unleashes a horde of malevolently mischievous monsters on a small town.", "https://images-na.ssl-images-amazon.com/images/M/MV5BZDVjN2FkYTQtNTBlOC00MjM5LTgzMWEtZWRlNGUyYmNiOTFiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg","https://youtu.be/-14d51QTVjo", "comedy/horror")
-the_room = media.Movie("The Room", "A tragic comedy about life and love.", "http://www.theroommovie.com/roompics/pics/roomcard.jpg", "https://youtu.be/9-dIdFXeFhs", "dark comedy")
-birdemic = media.Movie("Birdemic", "A horde of mutated birds descends upon the quiet town of Half Moon Bay, California. With the death toll rising, Two citizens manage to fight back, but will they survive Birdemic?", "https://images-na.ssl-images-amazon.com/images/M/MV5BOTcxODAwMDYwNV5BMl5BanBnXkFtZTcwNzQ3MjQzMg@@._V1_.jpg", "https://youtu.be/P-y53CRSF9Q", "horror/comedy")
-wicker_man = media.Movie("The Wicker Man", "A sheriff investigating the disappearance of a young girl from a small island discovers there's a larger mystery to solve among the island's secretive, neo-pagan community.", "https://images-na.ssl-images-amazon.com/images/M/MV5BMTI3NzQ3NjgzN15BMl5BanBnXkFtZTYwMjk4NTU3._V1_.jpg", "https://youtu.be/G8tHgGncPA0", "horror/comedy")
+# list of movies' imdb ID numbers, along with links to youtube trailers
+movie_ids = [['2428170','https://youtu.be/Kh-RXUh84NM'], ['2388715', "https://youtu.be/dYJrxezWLUk"], ['0051383', "https://youtu.be/NZXi_vOkMyU"], ['0069293', "https://youtu.be/9LMMn8czq2w"], ['0087363', "https://youtu.be/-14d51QTVjo"], ['0368226', "https://youtu.be/9-dIdFXeFhs"], ['1316037', 'https://youtu.be/P-y53CRSF9Q'], ['0450345', 'https://youtu.be/G8tHgGncPA0'], ['0072271', "https://youtu.be/AKqFfkassgo"]]
+movies = []
+
+# Create individual movie objects using IMDbPY API
+def build_movie_object(movie_id, trailer):
+    imdb_access = imdb.IMDb()
+    info = imdb_access.get_movie(movie_id)
+    title = info['title']
+    plot = info['plot outline']
+    poster = info['cover url']
+    genre = info['genres']
+    movie = media.Movie(title, plot, poster, trailer, genre)
+    movie.show_attributes()
+    movies.append(movie)
+
+# Iterate through movie_ids to create array of movie objects
+for movie in movie_ids:
+    build_movie_object(movie[0], movie[1])
+
+# Manually assemble show objects
 parks_and_recreation = media.Show("Parks and Recreation", "Lesley Knope is a diligent parks department employee in Pawnee Indiana just trying to make a positive imact", "https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.nbc.com%2Fsites%2Fnbcunbc%2Ffiles%2Ffiles%2F2013_0808_Parks_and_Rec_Show_KeyArt_1920x1080_0.jpg&f=1", 7, "https://en.wikipedia.org/wiki/Parks_and_Recreation", "comedy")
 luther = media.Show("Luther", "A crime drama series starring Idris Elba as a near-genius murder detective whose brilliant mind can't always save him from the dangerous violence of his passions.", "https://images-na.ssl-images-amazon.com/images/M/MV5BMWJiYTNjZDAtZDY2NS00YzA2LWE0MTAtMTQ0ZjAyMjQ1ZTQ1XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SY1000_CR0,0,682,1000_AL_.jpg", 5, "https://en.wikipedia.org/wiki/Luther_(TV_series)", "crime drama")
 the_wire = media.Show("The Wire", "Baltimore drug scene, seen through the eyes of drug dealers and law enforcement.", "https://images-na.ssl-images-amazon.com/images/M/MV5BNjc1NzYwODEyMV5BMl5BanBnXkFtZTcwNTcxMzU1MQ@@._V1_SY1000_CR0,0,735,1000_AL_.jpg", 5, "https://en.wikipedia.org/wiki/The_Wire", "crime drama")
-
-movies = [texas_chainsaw_massacre, creep, oculus, auntie_mame, solaris, gremlins, the_room, birdemic, wicker_man]
 shows = [parks_and_recreation, luther, the_wire]
+
+# Build page using shows and movies arrays
 fresh_tomatoes.open_movies_page(movies, shows)

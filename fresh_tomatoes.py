@@ -16,8 +16,9 @@ main_page_head = '''
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    //script to handle popovers for movie/show info
+
     <script>
+    //script to handle popovers for movie/show info
           $(document).ready(function(){
               $('[data-toggle="popover"]').popover();
           });
@@ -120,7 +121,7 @@ main_page_content = '''
         </div>
       </div>
     </div>
-    //Create separate sections for movies and shows.
+    <!-- Create separate sections for movies and shows. -->
     <div class="container">
         <div class="col-md-12 col-lg-12">
             <h1> Movies </h1>
