@@ -64,7 +64,17 @@ main_page_head = '''
             left: 0;
             top: 0;
             background-color: white;
+
+        //widen popover to full width of container and decrease font to
+        //accomodate longer descriptions
         }
+        .popover-content {
+            font-size: 8px;
+        }
+        .popover {
+            width = 100%;
+        }
+
     </style>
     <script type="text/javascript" charset="utf-8">
         // Pause the video when the modal is closed
@@ -149,7 +159,7 @@ movie_tile_content = '''
 show_tile_content = '''
 <div class="col-md-6 col-lg-4 top-buffer movie-tile text-center">
     <a href="{wiki_link}">
-        <img data-toggle="popover" data-placement="bottom" data-trigger="hover" title="{show_title}" data-content="{description}" src="{poster_image_url}" width="220" height="342">
+        <img data-toggle="popover" data-placement="center" data-trigger="hover" title="{show_title}" data-content="{description}" src="{poster_image_url}" width="220" height="342">
     </a>
     <h3 class=title>{show_title}</h3>
     <h4><a href="{seasons_link}"> {seasons_number} Seasons </a><h4>
@@ -200,7 +210,6 @@ def create_show_tiles_content(shows):
 def open_movies_page(movies, shows):
     # Create or overwrite the output file
     output_file = open('fresh_tomatoes.html', 'w')
-
     # Replace the movie tiles and show tiles placeholder generated content
     rendered_content = main_page_content.format(
         movie_tiles=create_movie_tiles_content(movies),
