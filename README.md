@@ -1,4 +1,4 @@
-# ud036_StarterCode
+# Fresh Tomatoes
 This is the first project in the Udacity full stack web development nanodegree.  It is essentially a page listing movies and shows I like.
 The main change made from the starter code is adding a class for shows, as distinct from movies.
 Movies and Shows are displayed in two sections.  When clicked, movies show trailers while shows link to the show's wiki.  You can also hover over any movie or show for more data about it.  I used the IMDbPY package to retrieve movie data from the IMDB API.
