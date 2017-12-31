@@ -7,6 +7,6 @@ API via the wikipedia python package.  Instructions amended for this changed req
 
 ## QuickStart
 1. Clone or download this repo
-2. Ensure that you have python 3 installed.
+2. Ensure that you have python 3 installed.  Currently not working with Python 2.
 3. Install the wikipedia python library using pip install wikipedia
 4. run media_data.py and check out some of my favorite movies and shows.
