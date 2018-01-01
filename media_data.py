@@ -7,10 +7,10 @@ import re
 movie_ids = [
 ['39469456', "https://youtu.be/dYJrxezWLUk"],
 ['9597495', "https://youtu.be/NZXi_vOkMyU"],
-['20181213', "https://youtu.be/9LMMn8czq2w"],
+['582398', "https://youtu.be/eI6Ol7aX6mk"],
 ['382387', "https://youtu.be/-14d51QTVjo"],
 ['5443971', "https://youtu.be/9-dIdFXeFhs"],
-['25581548', 'https://youtu.be/P-y53CRSF9Q'],
+['213246', 'https://youtu.be/-qJjiq72WOo'],
 ['5515243', 'https://youtu.be/G8tHgGncPA0'],
 ['1134373', 'https://youtu.be/3nj5MMURCm8'],
 ['2829485', 'https://youtu.be/B3DcWtkKeIY']
@@ -22,21 +22,32 @@ def build_movie_object(movie_id, trailer):
     wiki = wikipedia.page(pageid = movie_id)
     title = wiki.title
     plot = wiki.summary
-    poster = find_poster(wiki.images)
-
+    poster = find_poster(wiki.images, title)
     genre = wiki.categories[0]
     movie = media.Movie(title, plot, poster, trailer, genre)
     movies.append(movie)
 
-#posters are apparently always the last jpeg on images object list due to the page layout
-#so they can be gotten by iterating backwards through the list of image urls and
-#grabbing the first .jpg via regex
-def find_poster(images):
-    for image in reversed(images):
-        matchObj = re.search( '.jpg', image, re.M|re.I)
-        if matchObj:
-            #last .jpg in list = poster
+# To find the poster we first strip out useless characters and capitalization in the title.
+# Then we do the same for the image name.
+# Then we check all the images for any mention of the word "poster"
+# Then if that doesn't work we check for the name of the film itself.
+# This seems to pretty much always find the right image.
+def find_poster(images, title):
+
+    title_stripped = ("".join(title[0:title.find("(")].split(" "))).lower()
+    if title_stripped.startswith('the'):
+        title_stripped = title_stripped[3:-1]
+    for image in images:
+        image_stripped = "".join(re.split('/|_|-|\.',image.lower()))
+        if image_stripped.find("poster") > -1:
+            print(image)
             return image
+    for image in images:
+        image_stripped = "".join(re.split('/|_|-|\.',image.lower()))
+        if image_stripped.find(title_stripped) > -1:
+            print(image)
+            return image
+    return images[-1]
 
 # Iterate through movie_ids to create array of movie objects
 for movie in movie_ids:
