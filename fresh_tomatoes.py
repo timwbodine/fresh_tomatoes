@@ -186,9 +186,10 @@ def create_movie_tiles_content(movies):
             movie_title=movie.title,
             poster_image_url=movie.representative_image,
             trailer_youtube_id=trailer_youtube_id,
-            description = movie.description.encode('utf-8')
+            description=movie.description.encode('utf-8')
         )
     return content
+
 
 def create_show_tiles_content(shows):
     # The HTML content for this section of the page
@@ -196,12 +197,12 @@ def create_show_tiles_content(shows):
     for show in shows:
         # Append the tile for the show with its content filled in
         content += show_tile_content.format(
-            show_title = show.title,
+            show_title=show.title,
             poster_image_url=show.representative_image,
-            wiki_link = show.wiki,
-            seasons_link = show.wiki + "#Episodes",
-            seasons_number = show.seasons,
-            description = show.description
+            wiki_link=show.wiki,
+            seasons_link=show.wiki + "#Episodes",
+            seasons_number=show.seasons,
+            description=show.description
 
         )
     return content
@@ -214,7 +215,6 @@ def open_movies_page(movies, shows):
     rendered_content = main_page_content.format(
         movie_tiles=create_movie_tiles_content(movies),
         show_tiles=create_show_tiles_content(shows))
-
 
     # Output the file
     output_file.write(main_page_head + rendered_content)
